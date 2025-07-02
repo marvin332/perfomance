@@ -1,15 +1,16 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'    // если React
-import purgeCss from 'vite-plugin-purgecss'
+
 export default defineConfig({
-    plugins: [react(), purgeCss({
-        content: ['./index.html', './src/**/*.jsx', './src/**/*.scss'],
-        safelist: ['footer', 'active'], // классы, которые не трогать
-    }),],
+    plugins: [react()],
     base: '/perfomance/',
     build: {
-        sourcemap: true,         // потом можно отключить
-        minify: 'esbuild',       // или 'terser'
-        target: 'es2015',
+        sourcemap: false,
+        minify: 'terser',
+        terserOptions: {
+            compress: { drop_console: true, drop_debugger: true },
+            format: { comments: false },
+        },
+        target: 'es2017',
     },
 })
