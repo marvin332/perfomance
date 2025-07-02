@@ -117,7 +117,7 @@ import React from "react";
 import {Event} from "../event/Event";
 
 export function Main() {
-    console.log("dwadwadaw")
+
     const ref = React.useRef();
     const initedRef = React.useRef(false);
     const [activeTab, setActiveTab] = React.useState('');
