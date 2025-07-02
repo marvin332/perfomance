@@ -6,7 +6,7 @@ import {Main} from "./main/Main"
 
 import "./reset.css"
 
-
+import "./fonts.css"
 import "./styles.css"
 
 
