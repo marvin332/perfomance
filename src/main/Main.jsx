@@ -117,7 +117,7 @@ import React from "react";
 import {Event} from "../event/Event";
 
 export function Main() {
-    console.log("dawdaw")
+
 
     const ref = React.useRef();
     const initedRef = React.useRef(false);
