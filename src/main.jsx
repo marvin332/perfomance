@@ -5,8 +5,8 @@ import {Main} from "./main/Main"
 
 
 import "./reset.css"
-// import "./bootstrap.css"
-import "./fonts.css"
+
+
 import "./styles.css"
 
 
