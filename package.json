@@ -28,6 +28,7 @@
     "postcss-cli": "^11.0.1",
     "terser": "^5.43.1",
     "vite": "^7.0.0",
+    "vite-plugin-compression": "^0.5.1",
     "vite-plugin-purgecss": "^0.2.13"
   }
 }

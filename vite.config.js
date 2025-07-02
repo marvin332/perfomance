@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'    // если React
-
+import compression from 'vite-plugin-compression'
 export default defineConfig({
-    plugins: [react()],
+    plugins: [react(), compression({ algorithm: 'brotliCompress' }),],
     base: '/perfomance/',
     build: {
         sourcemap: false,
