@@ -16,7 +16,8 @@
   "license": "ISC",
   "dependencies": {
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "vite-imagetools": "^7.1.0"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^7.0.2",
