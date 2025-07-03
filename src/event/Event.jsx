@@ -1,5 +1,5 @@
 import React from "react";
-export function Event(props) {
+export default function Event(props) {
     const ref = React.useRef();
 
     const { onSize } = props;

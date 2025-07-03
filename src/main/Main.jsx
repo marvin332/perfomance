@@ -114,9 +114,9 @@ for (let i = 0; i < 6; ++i) {
 const TABS_KEYS = Object.keys(TABS);
 
 import React from "react";
-import {Event} from "../event/Event";
+import Event from "../event/Event";
 
-export function Main() {
+export default function Main() {
 
 
     const ref = React.useRef();
