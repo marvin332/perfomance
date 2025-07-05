@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Яндекс.Дом</title>
+    <style>
+        html,
+        body,
+        div,
+        span,
+        applet,
+        object,
+        iframe,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        blockquote,
+        pre,
+        a,
+        abbr,
+        acronym,
+        address,
+        big,
+        cite,
+        code,
+        del,
+        dfn,
+        em,
+        img,
+        ins,
+        kbd,
+        q,
+        s,
+        samp,
+        small,
+        strike,
+        strong,
+        sub,
+        sup,
+        tt,
+        var,
+        b,
+        u,
+        i,
+        center,
+        dl,
+        dt,
+        dd,
+        ol,
+        ul,
+        li,
+        fieldset,
+        form,
+        label,
+        legend,
+        table,
+        caption,
+        tbody,
+        tfoot,
+        thead,
+        tr,
+        th,
+        td,
+        article,
+        aside,
+        canvas,
+        details,
+        embed,
+        figure,
+        figcaption,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        output,
+        ruby,
+        section,
+        summary,
+        time,
+        mark,
+        audio,
+        video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        section {
+            display: block;
+        }
+
+        body {
+            line-height: 1;
+        }
+
+        ol,
+        ul {
+            list-style: none;
+        }
+
+        blockquote,
+        q {
+            quotes: none;
+        }
+
+        blockquote::before,
+        blockquote::after,
+        q::before,
+        q::after {
+            content: '';
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        /* Base typography & layout */
+        html {
+            font-size: 100%;
+            font-family: Arial, sans-serif;
+            line-height: 1.25;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: inherit;
+            line-height: inherit;
+            margin: 0;
+            height: 100%;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+
+        .a11y-hidden {
+            position: absolute;
+            left: auto;
+            top: 0;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(1px);
+        }
+
+        /* Header */
+        .header {
+            position: relative;
+            display: flex;
+            flex: 0 0 auto;
+            align-items: center;
+            height: 5.75rem;
+            margin-bottom: 1.875rem;
+            padding: 0 2.5rem;
+            font-family: Arial, sans-serif;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                height: 4rem;
+                margin-bottom: 0;
+                padding: 0 0 0 1.25rem;
+                border-bottom: none;
+            }
+        }
+
+        .header__logo {
+            flex: 0 0 auto;
+            width: 6.75rem;
+            height: 2.3125rem;
+            margin-right: 3.25rem;
+            background: no-repeat 50%/contain url(assets/logo.svg);
+        }
+
+        .header__menu {
+            display: none;
+            width: 3.5rem;
+            height: 100%;
+            margin-left: auto;
+            background: 50% 50% no-repeat url(assets/icon_list_m@1x.svg);
+            border: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .header__menu {
+                display: block;
+            }
+        }
+
+        .header__links {
+            display: flex;
+            gap: 1.75rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        @media (max-width: 768px) {
+            .header__links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                z-index: 1;
+                width: 100%;
+                padding: 1.25rem;
+                background: #fff;
+                box-shadow: 0 2px 6px rgba(197, 186, 186, 0.5);
+                flex-direction: column;
+            }
+            .header__links-opened,
+            .header__links-toggled {
+                display: flex;
+                animation-fill-mode: both;
+            }
+            .header__links-opened {
+                animation: showMenu 0.3s ease-in-out;
+            }
+            .header__links-toggled {
+                animation: hideMenu 0.3s ease-in-out;
+            }
+        }
+
+        @keyframes showMenu {
+            from {
+                transform: translateY(-1rem);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes hideMenu {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-1rem);
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .header__item {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header__link {
+            font-weight: 700;
+            opacity: 0.6;
+            text-decoration: none;
+            color: #333;
+            transition: opacity 0.15s ease-in-out;
+        }
+
+        .header__link:hover,
+        .header__link_current {
+            opacity: 1;
+        }
+
+
+        .main {
+            display: grid;
+            grid-template-columns: 50% 50%;
+            gap: 1.625rem;
+            padding: 0 2.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .main {
+                padding: 0 1.25rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .main {
+                grid-template-columns: 100%;
+            }
+        }
+
+        .main__devices {
+            grid-column: 1 / 3;
+        }
+
+        @media (max-width: 1024px) {
+            .main__devices {
+                grid-column-end: 2;
+            }
+        }
+
+        /* Section titles */
+        .section__title-header {
+            margin: 0 0 1.25rem 0;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .section__title {
+            display: flex;
+            align-items: baseline;
+            margin: 0 0 1.25rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .section__title {
+                gap: 1rem;
+            }
+            .section__main-title {
+                display: none;
+            }
+        }
+
+
+        .section__select {
+            display: none;
+            margin-left: auto;
+            padding: 0.4375rem 1.9375rem 0.5rem 1rem;
+            border: none;
+            border-radius: 1.25rem;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            background: #ffd93e url(assets/arrow-down.svg) no-repeat calc(100% - 1rem) 50%;
+            appearance: none;
+        }
+
+        @media (max-width: 768px) {
+            .section__select {
+                display: block;
+            }
+        }
+
+
+        .section__tabs {
+            display: flex;
+            gap: 0.625rem;
+            padding: 0;
+            margin-left: 0.8125rem;
+            list-style: none;
+        }
+
+        @media (max-width: 768px) {
+            .section__tabs {
+                display: none;
+            }
+        }
+
+        .section__tab {
+            padding: 0.4375rem 0.9375rem 0.5rem;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            background: #f7f7f7;
+            border-radius: 1024px;
+            cursor: pointer;
+            transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+        }
+
+        .section__tab_active {
+            background: #ffd93e;
+        }
+
+        .section__tab:not(.section__tab_active):hover {
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(197, 186, 186, 0.5);
+        }
+
+
+        .hero-dashboard {
+            display: flex;
+            gap: 0.9375rem;
+            height: 20.6875rem;
+            background: url(assets/bg2x_1_11zon.webp) no-repeat 50%/1260px;
+            border-radius: 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-dashboard {
+                flex-direction: column;
+                height: auto;
+                gap: 1.25rem;
+                margin-bottom: 0.3125rem;
+                background-image: none;
+            }
+        }
+
+        .hero-dashboard__primary {
+            flex: 1;
+            padding: 1.25rem 0 1.25rem 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-dashboard__primary {
+                padding: 1.25rem;
+            }
+        }
+
+        .hero-dashboard__title {
+            margin: 0.375rem 0;
+            font-size: 1.6875rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .hero-dashboard__title {
+                font-size: 1.125rem;
+            }
+        }
+
+        .hero-dashboard__subtitle {
+            margin: 0.375rem 0 0;
+            font-size: 0.875rem;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .hero-dashboard__subtitle {
+                margin: 0.3125rem 0 0;
+                font-size: 0.75rem;
+            }
+        }
+
+        .hero-dashboard__info {
+            display: flex;
+            gap: 1.125rem;
+            margin-top: 1.5625rem;
+            list-style: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero-dashboard__info {
+                margin-top: 0.9375rem;
+            }
+        }
+
+        .hero-dashboard__item-title {
+            font-size: 0.875rem;
+            color: #858585;
+        }
+
+        @media (max-width: 768px) {
+            .hero-dashboard__item-title {
+                font-size: 0.75rem;
+            }
+        }
+
+        .hero-dashboard__item-details {
+            display: flex;
+            align-items: center;
+            margin-top: 0.25rem;
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .hero-dashboard__item-details {
+                margin-top: 0.3125rem;
+                font-size: 1.5rem;
+            }
+        }
+
+        .hero-dashboard__icon {
+            width: 1.625rem;
+            height: 1.625rem;
+            margin-left: 0.3125rem;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            background-size: contain;
+        }
+
+        @media (max-width: 768px) {
+            .hero-dashboard__icon {
+                width: 1.375rem;
+                height: 1.375rem;
+            }
+        }
+
+        .hero-dashboard__icon_rain {
+            background-image: url(assets/cloud-drizzle.svg);
+        }
+
+        /* Schedule list */
+        .hero-dashboard__schedule {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9375rem;
+            padding: 1.25rem 1.5625rem 1.25rem 0;
+            overflow-x: auto;
+            list-style: none;
+            scrollbar-width: none;
+        }
+
+        .hero-dashboard__schedule::-webkit-scrollbar {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero-dashboard__schedule {
+                flex-direction: row;
+                padding: 0 1.25rem 1.25rem;
+            }
+        }
+
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.9375rem;
+            list-style: none;
+        }
+
+        @media (max-width: 768px) {
+            .event-grid {
+                display: flex;
+                overflow-x: auto;
+                padding-bottom: 0.3125rem;
+                scrollbar-width: none;
+            }
+            .event-grid::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+
+        .section__panel {
+            padding-bottom: 0.625rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .section__panel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .section__panel_hidden {
+            display: none;
+        }
+
+        .section__panel-list {
+            display: flex;
+            gap: 0.9375rem;
+            list-style: none;
+        }
+
+
+        .section__panel-wrapper {
+            position: relative;
+        }
+
+        .section__arrow {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 10px;
+            width: 18px;
+            background: url(./assets/arrow-left.png) no-repeat 50%;
+            transform: rotate(180deg);
+            cursor: pointer;
+        }
+
+        .section__arrow:hover {
+            opacity: 0.7;
+        }
+
+
+        .footer {
+            display: flex;
+            align-items: center;
+            height: 4rem;
+            margin-top: auto;
+            padding: 0 2.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.9375rem;
+                height: auto;
+                padding: 1rem 2.5rem;
+            }
+        }
+
+        .footer__list {
+            display: flex;
+            gap: 0.9375rem;
+            list-style: none;
+        }
+
+        @media (max-width: 768px) {
+            .footer__list {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        .footer__link {
+            font-size: 0.75rem;
+            color: #858585;
+            text-decoration: none;
+            transition: opacity 0.15s ease-in-out;
+        }
+
+        .footer__link:hover {
+            color: #000;
+        }
+
+        .footer__copyright {
+            margin-left: auto;
+            font-size: 0.75rem;
+            color: #858585;
+        }
+
+        @media (max-width: 768px) {
+            .footer__copyright {
+                margin-left: 0;
+            }
+        }
+
+
+        .event__button {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            gap: 0.1875rem;
+            width: 100%;
+            min-width: 12.5rem;
+            height: 7.5rem;
+            padding: 0.875rem;
+            border: none;
+            border-radius: 1.25rem;
+            background: #f7f7f7;
+            text-align: left;
+            cursor: pointer;
+            transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+            appearance: none;
+        }
+
+        .event_slim .event__button {
+            height: 6.25rem;
+        }
+
+        .event__button:hover {
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(197, 186, 186, 0.5);
+        }
+
+        .event__icon {
+            position: absolute;
+            top: 0.875rem;
+            left: 0.875rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            background-size: contain;
+        }
+
+        .event__icon_temp {
+            background-image: url(assets/icon_temperature.svg);
+        }
+
+        .event__icon_temp2 {
+            background-image: url(assets/icon_temperature_2.svg);
+        }
+
+        .event__icon_light {
+            background-image: url(assets/icon_sun.svg);
+        }
+
+        .event__icon_light2 {
+            background-image: url(assets/icon_sun_2.svg);
+        }
+
+        .event__icon_schedule {
+            background-image: url(assets/icon_scheduled.svg);
+        }
+
+        .event__title {
+            margin: 0;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .event__subtitle {
+            font-size: 0.75rem;
+            color: #858585;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app"></div>
+
+<footer class="footer">
+    <ul class="footer__list">
+        <li class="footer__item">
+            <a class="footer__link" href="/">Помощь</a>
+        </li>
+        <li class="footer__item">
+            <a class="footer__link" href="/">Обратная связь</a>
+        </li>
+        <li class="footer__item">
+            <a class="footer__link" href="/">Разработчикам</a>
+        </li>
+        <li class="footer__item">
+            <a class="footer__link" href="/">Условия использования</a>
+        </li>
+    </ul>
+    <div class="footer__copyright">
+        © 1997–2023 ООО «Яндекс»
+    </div>
+</footer>
+
+<script>
+    (() => {
+        'use strict';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const TABS = {
+                all: {
+                    title: 'Все',
+                    items: [
+                        { icon: 'light2', iconLabel: 'Освещение', title: 'Xiaomi Yeelight LED Smart Bulb', subtitle: 'Включено' },
+                        { icon: 'light', iconLabel: 'Освещение', title: 'D-Link Omna 180 Cam', subtitle: 'Включится в 17:00' },
+                        { icon: 'temp', iconLabel: 'Температура', title: 'Elgato Eve Degree Connected', subtitle: 'Выключено до 17:00' },
+                        { icon: 'light', iconLabel: 'Освещение', title: 'LIFX Mini Day & Dusk A60 E27', subtitle: 'Включится в 17:00' },
+                        { icon: 'light2', iconLabel: 'Освещение', title: 'Xiaomi Mi Air Purifier 2S', subtitle: 'Включено' },
+                        { icon: 'light', iconLabel: 'Освещение', title: 'Philips Zhirui', subtitle: 'Включено' }
+                    ]
+                },
+                kitchen: {
+                    title: 'Кухня',
+                    items: [
+                        { icon: 'light2', iconLabel: 'Освещение', title: 'Xiaomi Yeelight LED Smart Bulb', subtitle: 'Включено' },
+                        { icon: 'temp', iconLabel: 'Температура', title: 'Elgato Eve Degree Connected', subtitle: 'Выключено до 17:00' }
+                    ]
+                },
+                hall: {
+                    title: 'Зал',
+                    items: [
+                        { icon: 'light', iconLabel: 'Освещение', title: 'Philips Zhirui', subtitle: 'Выключено' },
+                        { icon: 'light2', iconLabel: 'Освещение', title: 'Xiaomi Mi Air Purifier 2S', subtitle: 'Выключено' }
+                    ]
+                },
+                lights: {
+                    title: 'Лампочки',
+                    items: [
+                        { icon: 'light', iconLabel: 'Освещение', title: 'D-Link Omna 180 Cam', subtitle: 'Включится в 17:00' },
+                        { icon: 'light', iconLabel: 'Освещение', title: 'LIFX Mini Day & Dusk A60 E27', subtitle: 'Включится в 17:00' },
+                        { icon: 'light2', iconLabel: 'Освещение', title: 'Xiaomi Mi Air Purifier 2S', subtitle: 'Включено' },
+                        { icon: 'light', iconLabel: 'Освещение', title: 'Philips Zhirui', subtitle: 'Включено' }
+                    ]
+                },
+                cameras: {
+                    title: 'Камеры',
+                    items: [
+                        { icon: 'light2', iconLabel: 'Освещение', title: 'Xiaomi Mi Air Purifier 2S', subtitle: 'Включено' }
+                    ]
+                }
+            };
+
+            for (let i = 0; i < 6; i++) {
+                TABS.all.items = [...TABS.all.items, ...TABS.all.items];
+            }
+
+            const categoryKeys = Object.keys(TABS);
+
+            const createEl = (tag, props = {}, children = []) => {
+                const el = document.createElement(tag);
+                Object.entries(props).forEach(([key, val]) => {
+                    if (key === 'class') el.className = val;
+                    else if (key.startsWith('aria-') || key.startsWith('data-')) el.setAttribute(key, val);
+                    else if (key in el) el[key] = val;
+                    else el.setAttribute(key, val);
+                });
+                children.forEach(child => el.append(child));
+                return el;
+            };
+
+            const renderEventItem = (data) => {
+                const li = createEl('li', { class: data.slim ? 'event event_slim' : 'event' });
+                const btn = createEl('button', { class: 'event__button' });
+                btn.append(createEl('span', { class: `event__icon event__icon_${data.icon}`, role: 'img', 'aria-label': data.iconLabel || '' }));
+                btn.append(createEl('h4', { class: 'event__title', textContent: data.title }));
+                if (data.subtitle) btn.append(createEl('span', { class: 'event__subtitle', textContent: data.subtitle }));
+                li.append(btn);
+                return li;
+            };
+
+            const createHeader = () => {
+                const header = createEl('header', { class: 'header' });
+                const logo = createEl('a', { href: '/', class: 'header__logo', 'aria-label': 'Яндекс.Дом' });
+                const menuBtn = createEl('button', { class: 'header__menu', 'aria-expanded': 'false' });
+                const menuTxt = createEl('span', { class: 'header__menu-text a11y-hidden', textContent: 'Открыть меню' });
+                menuBtn.append(menuTxt);
+                const nav = createEl('ul', { class: 'header__links' });
+                ['Сводка', 'Устройства', 'Сценарии'].forEach((txt, idx) => {
+                    const href = idx === 0 ? '/' : idx === 1 ? '/devices' : '/scripts';
+                    const a = createEl('a', { class: 'header__link', href, textContent: txt });
+                    if (idx === 0) { a.classList.add('header__link_current'); a.setAttribute('aria-current', 'page'); }
+                    nav.append(createEl('li', { class: 'header__item' }, [a]));
+                });
+                menuBtn.addEventListener('click', () => {
+                    const open = menuBtn.getAttribute('aria-expanded') === 'true';
+                    menuBtn.setAttribute('aria-expanded', String(!open));
+                    menuTxt.textContent = open ? 'Открыть меню' : 'Закрыть меню';
+                    nav.classList.toggle('header__links_opened', !open);
+                    nav.classList.add('header__links-toggled');
+                });
+                header.append(logo, menuBtn, nav);
+                return header;
+            };
+
+            const createHeroDashboard = () => {
+                const dash = createEl('div', { class: 'hero-dashboard' });
+                const primary = createEl('div', { class: 'hero-dashboard__primary' });
+                primary.append(
+                    createEl('h3', { class: 'hero-dashboard__title', textContent: 'Привет, Геннадий!' }),
+                    createEl('p', { class: 'hero-dashboard__subtitle', textContent: 'Двери и окна закрыты, сигнализация включена.' })
+                );
+                const info = createEl('ul', { class: 'hero-dashboard__info' });
+                [
+                    { label: 'Дома', value: '+23' },
+                    { label: 'За окном', value: '+19', icon: { type: 'rain', label: 'Дождь' } }
+                ].forEach(i => {
+                    const li = createEl('li', { class: 'hero-dashboard__item' });
+                    li.append(createEl('div', { class: 'hero-dashboard__item-title', textContent: i.label }));
+                    const det = createEl('div', { class: 'hero-dashboard__item-details' });
+                    det.innerHTML = `${i.value}<span class=\"a11y-hidden\">°</span>`;
+                    if (i.icon) det.append(createEl('div', { class: `hero-dashboard__icon hero-dashboard__icon_${i.icon.type}`, role: 'img', 'aria-label': i.icon.label }));
+                    li.append(det);
+                    info.append(li);
+                });
+                primary.append(info);
+                const schedule = createEl('ul', { class: 'hero-dashboard__schedule' }, [
+                    renderEventItem({ icon: 'temp', iconLabel: 'Температура', title: 'Philips Cooler', subtitle: 'Начнет охлаждать в 16:30' }),
+                    renderEventItem({ icon: 'light', iconLabel: 'Освещение', title: 'Xiaomi Yeelight LED Smart Bulb', subtitle: 'Включится в 17:00' })
+                ]);
+                dash.append(primary, schedule);
+                return dash;
+            };
+
+            const createMain = () => {
+                const main = createEl('main', { class: 'main' });
+                const general = createEl('section', { class: 'section main__general' }, [
+                    createEl('h2', { class: 'section__title section__title-header section__main-title', textContent: 'Главное' }),
+                    createHeroDashboard()
+                ]);
+                const scripts = createEl('section', { class: 'section main__scripts' }, [
+                    createEl('h2', { class: 'section__title section__title-header', textContent: 'Избранные схемы' }),
+                    createEl('ul', { class: 'event-grid' }, [
+                        renderEventItem({ slim: true, icon: 'light2', iconLabel: 'Освещение', title: 'Выключить весь свет в доме и во дворе' }),
+                        renderEventItem({ slim: true, icon: 'schedule', iconLabel: 'Расписание', title: 'Я ухожу' }),
+                        renderEventItem({ slim: true, icon: 'light2', iconLabel: 'Освещение', title: 'Включить свет в коридоре' }),
+                        renderEventItem({ slim: true, icon: 'temp2', iconLabel: 'Температура', title: 'Набрать горячую ванну', subtitle: 'Начнётся в 18:00' })
+                    ])
+                ]);
+                const devices = createDevicesSection();
+                main.append(general, scripts, devices);
+                return main;
+            };
+
+            const createDevicesSection = () => {
+                const sec = createEl('section', { class: 'section main__devices' });
+                const title = createEl('div', { class: 'section__title' });
+                title.append(createEl('h2', { class: 'section__title-header', textContent: 'Избранные устройства' }));
+                const sel = createEl('select', { class: 'section__select' });
+                categoryKeys.forEach(key => sel.append(createEl('option', { value: key, textContent: TABS[key].title })));
+                sel.value = 'all';
+                title.append(sel);
+                const tabs = createEl('ul', { class: 'section__tabs', role: 'tablist' });
+                categoryKeys.forEach((key, i) => tabs.append(createEl('li', { class: `section__tab${i===0?' section__tab_active':''}`, role: 'tab', 'aria-selected': String(i===0), 'tabindex': i===0?'0':'-1', id: `tab_${key}`, 'aria-controls': `panel_${key}`, 'data-tab-key': key, textContent: TABS[key].title })));
+                title.append(tabs);
+                sec.append(title);
+                const wrap = createEl('div', { class: 'section__panel-wrapper' });
+                categoryKeys.forEach((key, i) => {
+                    const panel = createEl('div', { class: i===0?'section__panel':'section__panel section__panel_hidden', role: 'tabpanel', 'aria-hidden': String(i!==0), id: `panel_${key}`, 'aria-labelledby': `tab_${key}` });
+                    panel.append(createEl('ul', { class: 'section__panel-list' }, TABS[key].items.map(renderEventItem)));
+                    wrap.append(panel);
+                });
+                const arrow = createEl('div', { class: 'section__arrow' });
+                wrap.append(arrow);
+                sec.append(wrap);
+                let activeKey = 'all';
+                const updateArrow = () => {
+                    const cur = wrap.querySelector('.section__panel:not(.section__panel_hidden)');
+                    if (!cur) return;
+                    const totalW = [...cur.querySelectorAll('.section__panel-list > *')].reduce((sum, el) => sum + el.offsetWidth, 0);
+                    arrow.style.display = totalW > cur.offsetWidth ? 'block' : 'none';
+                };
+                const switchTab = (newKey) => {
+                    if (newKey === activeKey) return;
+                    const prev = tabs.querySelector(`[data-tab-key="${activeKey}"]`);
+                    prev.classList.remove('section__tab_active'), prev.setAttribute('aria-selected', 'false'), prev.setAttribute('tabindex', '-1');
+                    activeKey = newKey;
+                    const next = tabs.querySelector(`[data-tab-key="${newKey}"]`);
+                    next.classList.add('section__tab_active'), next.setAttribute('aria-selected', 'true'), next.setAttribute('tabindex', '0'); sel.value = newKey;
+                    wrap.querySelectorAll('.section__panel').forEach(p => {
+                        const show = p.id === `panel_${newKey}`;
+                        p.classList.toggle('section__panel_hidden', !show), p.setAttribute('aria-hidden', String(!show));
+                    });
+                    setTimeout(updateArrow, 0);
+                };
+                tabs.querySelectorAll('.section__tab').forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tabKey)));
+                sel.addEventListener('change', e => switchTab(e.target.value));
+                arrow.addEventListener('click', () => {
+                    const cur = wrap.querySelector('.section__panel:not(.section__panel_hidden)'); if (cur) cur.scrollBy({ left: 400, behavior: 'smooth' });
+                });
+                setTimeout(() => { updateArrow(); window.addEventListener('resize', updateArrow); }, 100);
+                return sec;
+            };
+
+            const app = document.getElementById('app');
+            app.append(createHeader(), createMain());
+        });
+    })();
+
+
+</script>
+</body>
+</html>
